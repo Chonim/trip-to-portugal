@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <v-form @submit.prevent="goToSearch($event.target.value)">
+      <count-down></count-down>
       <v-text-field
         v-model="searchText"
         label="Keyword"
@@ -29,8 +30,13 @@
 </template>
 
 <script>
+import CountDown from './CountDown'
+
 export default {
   name: 'hello',
+  components: {
+    CountDown
+  },
   data () {
     return {
       baseUrl: 'https://source.unsplash.com/featured/?',

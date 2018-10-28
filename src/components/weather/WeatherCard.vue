@@ -1,38 +1,38 @@
 <template>
-  <div class="card cardTemplate weather-forecast">
+  <div class="card cardTemplate weather-forecast" v-if="weather">
     <div class="city-key" hidden></div>
     <div class="card-last-updated" hidden></div>
-    <div class="location">New York</div>
-    <div class="date">Mon, 22 Oct 2018 11:00 AM EDT</div>
-    <div class="description">Partly Cloudy</div>
+    <div class="location">{{weather.location.city}}</div>
+    <div class="date">{{weather.lastBuildDate}}</div>
+    <div class="description">{{weather.item.condition.text}}</div>
     <div class="current">
       <div class="visual">
-        <div class="icon clear-day"></div>
+        <div :class="['icon', getIcon(weather.item.condition.code)]"></div>
         <div class="temperature">
           <span class="value">20</span><span class="scale">°C</span>
         </div>
       </div>
       <div class="description">
-        <div class="humidity">56%</div>
+        <div class="humidity">{{weather.atmosphere.humidity}}%</div>
         <div class="wind">
-          <span class="value">26</span>
+          <span class="value">{{weather.wind.speed}}</span>
           <span class="scale">mph</span>
-          <span class="direction">255</span>°
+          <span class="direction">{{weather.wind.direction}}</span>°
         </div>
-        <div class="sunrise">7:15 am</div>
-        <div class="sunset">6:6 pm</div>
+        <div class="sunrise">{{weather.astronomy.sunrise}}</div>
+        <div class="sunset">{{weather.astronomy.sunset}}</div>
       </div>
     </div>
     <div class="future">
-      <template v-for="i in 7">
+      <template v-for="(forecast, i) in weather.item.forecast">
         <div class="oneday" :key="i">
           <div class="date"></div>
-          <div class="icon windy"></div>
+          <div :class="['icon', getIcon(forecast.code)]"></div>
           <div class="temp-high">
-            <span class="value">20</span>°
+            <span class="value">{{calcFtoC(forecast.high)}}</span>°
           </div>
           <div class="temp-low">
-            <span class="value">10</span>°
+            <span class="value">{{calcFtoC(forecast.low)}}</span>°
           </div>
         </div>
       </template>
@@ -42,7 +42,80 @@
 
 <script>
 export default {
-  name: 'WeatherCard'
+  name: 'WeatherCard',
+  props: {
+    weather: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  methods: {
+    calcFtoC (f) {
+      return parseInt((f - 32) * 5 / 9)
+    },
+    getIcon (weatherCode) {
+      weatherCode = parseInt(weatherCode)
+      switch (weatherCode) {
+        case 25: // cold
+        case 32: // sunny
+        case 33: // fair (night)
+        case 34: // fair (day)
+        case 36: // hot
+        case 3200: // not available
+          return 'clear-day'
+        case 0: // tornado
+        case 1: // tropical storm
+        case 2: // hurricane
+        case 6: // mixed rain and sleet
+        case 8: // freezing drizzle
+        case 9: // drizzle
+        case 10: // freezing rain
+        case 11: // showers
+        case 12: // showers
+        case 17: // hail
+        case 35: // mixed rain and hail
+        case 40: // scattered showers
+          return 'rain'
+        case 3: // severe thunderstorms
+        case 4: // thunderstorms
+        case 37: // isolated thunderstorms
+        case 38: // scattered thunderstorms
+        case 39: // scattered thunderstorms (not a typo)
+        case 45: // thundershowers
+        case 47: // isolated thundershowers
+          return 'thunderstorms'
+        case 5: // mixed rain and snow
+        case 7: // mixed snow and sleet
+        case 13: // snow flurries
+        case 14: // light snow showers
+        case 16: // snow
+        case 18: // sleet
+        case 41: // heavy snow
+        case 42: // scattered snow showers
+        case 43: // heavy snow
+        case 46: // snow showers
+          return 'snow'
+        case 15: // blowing snow
+        case 19: // dust
+        case 20: // foggy
+        case 21: // haze
+        case 22: // smoky
+          return 'fog'
+        case 24: // windy
+        case 23: // blustery
+          return 'windy'
+        case 26: // cloudy
+        case 27: // mostly cloudy (night)
+        case 28: // mostly cloudy (day)
+        case 31: // clear (night)
+          return 'cloudy'
+        case 29: // partly cloudy (night)
+        case 30: // partly cloudy (day)
+        case 44: // partly cloudy
+          return 'partly-cloudy-day'
+      }
+    }
+  }
 }
 </script>
 
@@ -265,6 +338,7 @@ body {
 
 .card {
   padding: 16px;
+  padding-left: 4px;
   position: relative;
   box-sizing: border-box;
   background: #fff;

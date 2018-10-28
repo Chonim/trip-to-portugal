@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { apiHandler } from '@/utils/api-handler'
+import CONFIG from '@/config'
 import PostCard from './search/PostCard'
 
 export default {
@@ -57,20 +59,23 @@ export default {
   },
   methods: {
     searchByKeyword (page) {
-      this.$http.get(`https://dapi.kakao.com/v2/search/blog?query=${this.keyword}&page=${page}`)
-        .then((result) => {
-          console.log(result)
-          const { data } = result
-          this.posts = data.documents
-          this.pages = data.meta.pageable_count
-          console.log(this.posts)
-          // window.scroll(0, 0)
-          this.$vuetify.goTo(0, {
-            duration: 300,
-            offset: 0,
-            easing: 'easeInOutCubic'
-          })
+      this.$http.get(`https://dapi.kakao.com/v2/search/blog?query=${this.keyword}&page=${page}`, {
+        headers: {
+          Authorization: CONFIG.KAKAO_AUTH
+        }
+      }).then((result) => {
+        apiHandler(result)
+        console.log(result)
+        const { data } = result
+        this.posts = data.documents
+        this.pages = data.meta.pageable_count
+        console.log(this.posts)
+        this.$vuetify.goTo(0, {
+          duration: 300,
+          offset: 0,
+          easing: 'easeInOutCubic'
         })
+      })
     },
     swipe (direction) {
       console.log(direction)
