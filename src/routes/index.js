@@ -5,9 +5,24 @@ export default [
     component: () => import('@/components/Home')
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/components/auth/Login')
+  },
+  {
     path: '/weather',
     name: 'Weather',
     component: () => import('@/components/weather/WeatherContainer')
+  },
+  {
+    path: '/naver',
+    name: 'Naver',
+    component: () => import('@/components/search/NaverSearch')
+  },
+  {
+    path: '/accomodation',
+    name: 'Accomodation',
+    component: () => import('@/components/accomodation')
   },
   {
     path: '/search/:keyword',

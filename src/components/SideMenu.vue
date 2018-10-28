@@ -56,13 +56,63 @@ export default {
       drawer: false,
       items: [
         {
-          title: 'Home',
-          icon: 'dashboard',
+          title: '홈으로',
+          icon: 'home',
           route: '/'
         },
         {
-          title: 'Weather',
-          icon: 'question_answer',
+          title: '스크랩',
+          icon: 'favorite',
+          route: '/'
+        },
+        {
+          title: '날씨',
+          icon: 'wb_sunny',
+          route: '/weather'
+        },
+        {
+          title: '항공권',
+          icon: 'flight',
+          route: '/weather'
+        },
+        {
+          title: '지도',
+          icon: 'map',
+          route: '/weather'
+        },
+        {
+          title: '숙소',
+          icon: 'local_hotel',
+          route: '/accomodation'
+        },
+        {
+          title: '맛집',
+          icon: 'restaurant',
+          route: '/weather'
+        },
+        {
+          title: '카페',
+          icon: 'local_cafe',
+          route: '/weather'
+        },
+        {
+          title: '디저트',
+          icon: 'cake',
+          route: '/weather'
+        },
+        {
+          title: '와인',
+          icon: 'local_bar',
+          route: '/weather'
+        },
+        {
+          title: '쇼핑',
+          icon: 'shop',
+          route: '/weather'
+        },
+        {
+          title: '액티비티',
+          icon: 'local_activity',
           route: '/weather'
         }
       ]

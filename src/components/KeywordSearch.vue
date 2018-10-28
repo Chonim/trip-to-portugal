@@ -31,6 +31,17 @@
         :length="pages"
       ></v-pagination>
     </div>
+    <v-btn
+      fixed
+      dark
+      fab
+      bottom
+      right
+      color="pink"
+      @click="goToTop"
+    >
+      <v-icon>arrow_upward</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -70,11 +81,14 @@ export default {
         this.posts = data.documents
         this.pages = data.meta.pageable_count
         console.log(this.posts)
-        this.$vuetify.goTo(0, {
-          duration: 300,
-          offset: 0,
-          easing: 'easeInOutCubic'
-        })
+        this.goToTop()
+      })
+    },
+    goToTop () {
+      this.$vuetify.goTo(0, {
+        duration: 300,
+        offset: 0,
+        easing: 'easeInOutCubic'
       })
     },
     swipe (direction) {

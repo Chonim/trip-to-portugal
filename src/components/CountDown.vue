@@ -1,6 +1,6 @@
 <template>
   <div class="countdown-wrapper">
-    <div id="countdown-clock" :class="countdown-clock"></div>
+    <div id="countdown-clock" class="countdown-clock"></div>
   </div>
 </template>
 
