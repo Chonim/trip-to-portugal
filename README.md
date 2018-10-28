@@ -1,4 +1,4 @@
-# vue-pwa-test
+# Trip to Portugal
 
 > A Vue.js project
 

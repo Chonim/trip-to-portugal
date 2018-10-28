@@ -11,7 +11,6 @@
 <script>
 import api from '@/api'
 import WeatherCard from './WeatherCard'
-import countdown from 'countdown'
 
 export default {
   name: 'WeatherContainer',
@@ -44,7 +43,6 @@ export default {
   },
   mounted () {
     this.fetchWeather()
-    console.log(countdown(new Date(2019, 5, 12)).toString())
   }
 }
 </script>

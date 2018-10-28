@@ -9,7 +9,7 @@ import FlipClock from 'flipclock'
 import 'flipclock/dist/flipclock.css'
 
 export default {
-  name: 'Countdown',
+  name: 'CountDown',
   data () {
     return {
       clock: null
