@@ -3,24 +3,14 @@
 </template>
 
 <script>
-import firebase from 'firebase/app'
-import CONFIG from '@/config'
+import firebase from '@/plugins/firebase'
 import * as firebaseui from 'firebaseui'
-import 'firebase/auth'
+
 import 'firebaseui/dist/firebaseui.css'
 
 export default {
   name: 'Login',
   mounted () {
-    const config = {
-      apiKey: CONFIG.FIREBASE_API_KEY,
-      authDomain: 'trip-to-portugal.firebaseapp.com',
-      databaseURL: 'https://trip-to-portugal.firebaseio.com',
-      projectId: 'trip-to-portugal',
-      storageBucket: 'gs://trip-to-portugal.appspot.com'
-    }
-    firebase.initializeApp(config)
-
     // const provider = new firebase.auth.GoogleAuthProvider()
     // firebase.auth().signInWithPopup(provider).then((result) => {
     //   // This gives you a Google Access Token. You can use it to access the Google API.

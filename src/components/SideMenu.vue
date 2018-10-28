@@ -83,37 +83,37 @@ export default {
         {
           title: '숙소',
           icon: 'local_hotel',
-          route: '/accomodation'
+          route: '/data/accomodation'
         },
         {
           title: '맛집',
           icon: 'restaurant',
-          route: '/weather'
+          route: '/data/restaurant'
         },
         {
           title: '카페',
           icon: 'local_cafe',
-          route: '/weather'
+          route: '/data/cafe'
         },
         {
           title: '디저트',
           icon: 'cake',
-          route: '/weather'
+          route: '/data/desert'
         },
         {
-          title: '와인',
+          title: '와인 / 맥주',
           icon: 'local_bar',
-          route: '/weather'
+          route: '/data/wine'
         },
         {
           title: '쇼핑',
           icon: 'shop',
-          route: '/weather'
+          route: '/data/shopping'
         },
         {
           title: '액티비티',
           icon: 'local_activity',
-          route: '/weather'
+          route: '/data/activity'
         }
       ]
     }

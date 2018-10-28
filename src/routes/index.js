@@ -20,8 +20,8 @@ export default [
     component: () => import('@/components/search/NaverSearch')
   },
   {
-    path: '/accomodation',
-    name: 'Accomodation',
+    path: '/data/:type',
+    name: 'Data',
     component: () => import('@/components/accomodation')
   },
   {
