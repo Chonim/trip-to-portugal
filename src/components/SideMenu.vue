@@ -9,17 +9,17 @@
       dark
       @input="$emit('change')"
     >
-      <!-- <v-list class="pa-1">
+      <v-list class="pa-1">
         <v-list-tile avatar>
           <v-list-tile-avatar>
             <img src="https://randomuser.me/api/portraits/men/85.jpg">
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title>John Leider</v-list-tile-title>
+            <v-list-tile-title>{{username}}님 하잉</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-      </v-list> -->
+      </v-list>
 
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
@@ -43,6 +43,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import firebase from '@/plugins/firebase'
+
 export default {
   name: 'SideMenu',
   props: {
@@ -54,32 +57,33 @@ export default {
   data () {
     return {
       drawer: false,
+      currentUser: '',
       items: [
         {
           title: '홈으로',
           icon: 'home',
           route: '/'
         },
-        {
-          title: '스크랩',
-          icon: 'favorite',
-          route: '/'
-        },
+        // {
+        //   title: '스크랩',
+        //   icon: 'favorite',
+        //   route: '/'
+        // },
         {
           title: '날씨',
           icon: 'wb_sunny',
           route: '/weather'
         },
-        {
-          title: '항공권',
-          icon: 'flight',
-          route: '/weather'
-        },
-        {
-          title: '지도',
-          icon: 'map',
-          route: '/weather'
-        },
+        // {
+        //   title: '항공권',
+        //   icon: 'flight',
+        //   route: '/weather'
+        // },
+        // {
+        //   title: '지도',
+        //   icon: 'map',
+        //   route: '/weather'
+        // },
         {
           title: '숙소',
           icon: 'local_hotel',
@@ -118,6 +122,11 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters({
+      username: 'auth/getUsername'
+    })
+  },
   watch: {
     isOpen (newVal) {
       this.drawer = newVal
@@ -133,6 +142,11 @@ export default {
       console.log(route)
       this.$router.push(route)
     }
+  },
+  mounted () {
+    console.log(firebase.auth().currentUser)
+    // this.currentUser = firebase.auth().currentUser.displayName
+    // console.log(this.currentUser)
   }
 }
 </script>

@@ -17,9 +17,9 @@
           <v-list-tile-sub-title>{{ item.link }}</v-list-tile-sub-title>
         </v-list-tile-content>
 
-        <v-list-tile-action>
+        <!-- <v-list-tile-action>
           <v-list-tile-action-text>{{ item.addedDate }}</v-list-tile-action-text>
-        </v-list-tile-action>
+        </v-list-tile-action> -->
         <v-list-tile-action>
           <v-icon
             :color="item.isFavorite ? 'yellow darken-2' : 'grey lighten-1'"
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import firebase from '@/plugins/firebase'
 import DeleteConfirm from '../elements/DeleteConfirm'
 
 export default {
@@ -70,15 +71,16 @@ export default {
       this.isModalOpen = true
     },
     updateIsFavorite (key, isFavorite) {
-      this.$http.patch(`data/${key}.json`, { isFavorite }).then((res) => {
-        this.$emit('update')
-      })
+      const ref = firebase.database().ref(`data/${key}`)
+      ref.update({ isFavorite })
     },
     deleteLink (key) {
       this.isModalOpen = false
-      this.$http.delete(`data/${key}.json`).then((res) => {
-        this.$emit('update')
-      })
+      const ref = firebase.database().ref(`data/${key}`)
+      ref.remove()
+      // this.$http.delete(`data/${key}.json`).then((res) => {
+      //   this.$emit('update')
+      // })
     }
   }
 }

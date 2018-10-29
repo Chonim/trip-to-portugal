@@ -11,17 +11,7 @@ import 'firebaseui/dist/firebaseui.css'
 export default {
   name: 'Login',
   mounted () {
-    // const provider = new firebase.auth.GoogleAuthProvider()
-    // firebase.auth().signInWithPopup(provider).then((result) => {
-    //   // This gives you a Google Access Token. You can use it to access the Google API.
-    //   // const token = result.credential.accessToken
-    //   const user = result.user
-    //   // console.log(token)
-    //   console.log(user)
-    //   this.$router.push('/accomodation')
-    // }).catch((error) => {
-    //   console.log(error)
-    // })
+    console.log(firebaseui.auth.AuthUI)
     const uiConfig = {
       signInSuccessUrl: 'https://trip-to-portugal.firebaseapp.com/',
       signInOptions: [
@@ -42,9 +32,11 @@ export default {
     }
 
     // Initialize the FirebaseUI Widget using Firebase.
-    const ui = new firebaseui.auth.AuthUI(firebase.auth())
+    if (!window.firebaseAuthUi) {
+      window.firebaseAuthUi = new firebaseui.auth.AuthUI(firebase.auth())
+    }
     // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig)
+    window.firebaseAuthUi.start('#firebaseui-auth-container', uiConfig)
   }
 }
 </script>

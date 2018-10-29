@@ -9,7 +9,7 @@
       label="설명"
     ></v-text-field>
     <v-select
-      :items="['porto', 'lisbon']"
+      :items="cityList"
       @change="selectedCity = $event"
       label="도시"
     ></v-select>
@@ -24,6 +24,11 @@
     <v-subheader inset>리스본</v-subheader>
     <link-list
       :obj="lisbonObj"
+      @update="getList()"
+    ></link-list>
+    <v-subheader inset>일반</v-subheader>
+    <link-list
+      :obj="generalObj"
       @update="getList()"
     ></link-list>
   </v-list>
@@ -53,6 +58,8 @@ export default {
       ref: null,
       portoObj: {},
       lisbonObj: {},
+      generalObj: {},
+      cityList: ['porto', 'lisbon', 'general'],
       selectedCity: '',
       note: '',
       link: '',
@@ -69,13 +76,13 @@ export default {
   methods: {
     getList () {
       this.ref.orderByChild('type').equalTo(this.$route.params.type).once('value').then((snapshot) => {
-      // this.ref.once('value').then((snapshot) => {
-        console.log(snapshot)
-        console.log(snapshot.val())
-        // const { data } = res
         this.items = snapshot.val()
         this.portoObj = _pickBy(this.items, { city: 'porto' })
         this.lisbonObj = _pickBy(this.items, { city: 'lisbon' })
+        this.generalObj = _pickBy(this.items, { city: 'general' })
+      }).catch((err) => {
+        console.error(err)
+        this.$router.push('/login')
       })
     },
     addLink () {
@@ -87,13 +94,12 @@ export default {
         type: this.$route.params.type,
         link: this.link
       }
-      this.$http.post('data.json', payload).then((res) => {
-        this.getList()
-      })
+      this.ref.push().set(payload)
     }
   },
   mounted () {
     this.ref = firebase.database().ref('/data')
+    this.ref.on('value', () => this.getList())
     this.getList()
   }
 }

@@ -66,6 +66,8 @@ a {
 main {
   text-align: center;
   height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
   /* margin-top: 56px; */
 }
 
