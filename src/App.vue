@@ -12,7 +12,13 @@
         >
           menu
         </i>
-        <div>Trip to Portugal</div>
+        <div>2019 Portugal</div>
+        <div class="logout-button">
+          <div
+            v-show="$store.getters['auth/getUsername']"
+            @click="signout()"
+          >로그아웃</div>
+        </div>
       </div>
     </header>
     <main>
@@ -24,6 +30,7 @@
 </template>
 
 <script>
+import firebase from '@/plugins/firebase'
 import SideMenu from './components/SideMenu'
 
 export default {
@@ -34,6 +41,13 @@ export default {
   data () {
     return {
       isSideMenuOpen: false
+    }
+  },
+  methods: {
+    signout () {
+      firebase.auth().signOut().then(() => {
+        this.$store.dispatch('auth/changeUsername', '')
+      })
     }
   }
 }
@@ -87,6 +101,12 @@ main {
     font-size: 20px;
     i {
       min-width: 2em;
+    }
+    .logout-button {
+      width: 40%;
+      text-align: right;
+      font-size: 16px;
+      font-weight: 600;
     }
   }
 }

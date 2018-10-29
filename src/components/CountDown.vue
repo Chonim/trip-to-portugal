@@ -16,9 +16,11 @@ export default {
     }
   },
   mounted () {
-    const el = document.getElementById('countdown-clock')
-    this.clock = new FlipClock(el, new Date(2019, 5, 12), {
-      face: 'DayCounter'
+    this.$nextTick(() => {
+      const el = document.getElementById('countdown-clock')
+      this.clock = new FlipClock(el, new Date(2019, 5, 12), {
+        face: 'DayCounter'
+      })
     })
   }
 }
