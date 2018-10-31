@@ -9,7 +9,7 @@
       <div class="visual">
         <div :class="['icon', getIcon(weather.item.condition.code)]"></div>
         <div class="temperature">
-          <span class="value">20</span><span class="scale">°C</span>
+          <span class="value">{{calcFtoC(weather.item.condition.temp)}}</span><span class="scale">°C</span>
         </div>
       </div>
       <div class="description">

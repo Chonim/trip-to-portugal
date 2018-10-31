@@ -1,8 +1,8 @@
 const functions = require('firebase-functions')
 
-const crawlPreview = functions.https.onRequest((req, res) => {
-  console.log(Object.keys(req))
-  res.send(req)
+const crawlPreview = functions.database.ref('/data/{dataId}').onWrite((change, context) => {
+  console.log(change)
+  console.log(context)
 })
 // const crawlPreview = functions.database.ref('/accomodation/porto')
 //   .onWrite(event => {

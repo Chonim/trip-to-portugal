@@ -66,6 +66,10 @@ div, h1, h2, h3, h4 {
   color: #fff;
 }
 
+h2 {
+  margin-bottom: 16px;
+}
+
 a {
   text-decoration: none;
 }
@@ -80,8 +84,8 @@ a {
 main {
   text-align: center;
   height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+  /* padding-left: 10px;
+  padding-right: 10px; */
   /* margin-top: 56px; */
 }
 

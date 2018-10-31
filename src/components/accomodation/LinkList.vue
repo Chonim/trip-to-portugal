@@ -6,37 +6,14 @@
       @confirm="deleteLink(selectedKey)"
     ></delete-confirm>
     <template v-for="(item, key, index) in obj">
-      <v-list-tile
-        :key="key"
-        avatar
-        ripple
-      >
-        <v-list-tile-content @click="openLink(item.link)">
-          <v-list-tile-title>{{ item.note }}</v-list-tile-title>
-          <v-list-tile-sub-title class="text--primary">{{ item.link }}</v-list-tile-sub-title>
-          <v-list-tile-sub-title>{{ item.link }}</v-list-tile-sub-title>
-        </v-list-tile-content>
-
-        <!-- <v-list-tile-action>
-          <v-list-tile-action-text>{{ item.addedDate }}</v-list-tile-action-text>
-        </v-list-tile-action> -->
-        <v-list-tile-action>
-          <v-icon
-            :color="item.isFavorite ? 'yellow darken-2' : 'grey lighten-1'"
-            @click="updateIsFavorite(key, !item.isFavorite)"
-          >
-            {{item.isFavorite ? 'star' : 'star_border' }}
-          </v-icon>
-          <v-icon @click="openModal(key)">
-            delete
-          </v-icon>
-        </v-list-tile-action>
-
-      </v-list-tile>
-      <v-divider
-        v-if="index + 1 < obj.length"
-        :key="index"
-      ></v-divider>
+      <list-entity
+        :item="item"
+        :obj-key="key"
+        :obj-index="index"
+        :obj-length="obj.length"
+        :key="item.type + index"
+        @openModal="openModal(key)"
+      ></list-entity>
     </template>
   </div>
 </template>
@@ -44,6 +21,7 @@
 <script>
 import firebase from '@/plugins/firebase'
 import DeleteConfirm from '../elements/DeleteConfirm'
+import ListEntity from './ListEntity'
 
 export default {
   name: 'LinkList',
@@ -54,7 +32,8 @@ export default {
     }
   },
   components: {
-    DeleteConfirm
+    DeleteConfirm,
+    ListEntity
   },
   data () {
     return {
@@ -63,24 +42,14 @@ export default {
     }
   },
   methods: {
-    openLink (link) {
-      window.open(link)
-    },
     openModal (key) {
       this.selectedKey = key
       this.isModalOpen = true
-    },
-    updateIsFavorite (key, isFavorite) {
-      const ref = firebase.database().ref(`data/${key}`)
-      ref.update({ isFavorite })
     },
     deleteLink (key) {
       this.isModalOpen = false
       const ref = firebase.database().ref(`data/${key}`)
       ref.remove()
-      // this.$http.delete(`data/${key}.json`).then((res) => {
-      //   this.$emit('update')
-      // })
     }
   }
 }

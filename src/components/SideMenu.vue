@@ -64,11 +64,21 @@ export default {
           icon: 'home',
           route: '/'
         },
-        // {
-        //   title: '스크랩',
-        //   icon: 'favorite',
-        //   route: '/'
-        // },
+        {
+          title: '즐겨찾기',
+          icon: 'favorite',
+          route: '/data/favorite'
+        },
+        {
+          title: '포르투',
+          icon: 'flight_land',
+          route: '/data/porto'
+        },
+        {
+          title: '리스본',
+          icon: 'flight_takeoff',
+          route: '/data/lisbon'
+        },
         {
           title: '날씨',
           icon: 'wb_sunny',
@@ -79,6 +89,11 @@ export default {
         //   icon: 'flight',
         //   route: '/weather'
         // },
+        {
+          title: '교통수단',
+          icon: 'tram',
+          route: '/data/transportation'
+        },
         // {
         //   title: '지도',
         //   icon: 'map',
@@ -94,16 +109,18 @@ export default {
           icon: 'restaurant',
           route: '/data/restaurant'
         },
-        {
-          title: '카페',
-          icon: 'local_cafe',
-          route: '/data/cafe'
-        },
-        {
-          title: '디저트',
-          icon: 'cake',
-          route: '/data/desert'
-        },
+        // 관광 (포르투, 리스본?)
+        // 포르투 리스본 체크박스
+        // {
+        //   title: '카페',
+        //   icon: 'local_cafe',
+        //   route: '/data/cafe'
+        // },
+        // {
+        //   title: '디저트',
+        //   icon: 'cake',
+        //   route: '/data/desert'
+        // },
         {
           title: '와인 / 맥주',
           icon: 'local_bar',
