@@ -166,7 +166,10 @@ export default {
   },
   methods: {
     goToPage (route) {
-      console.log(route)
+      const { path } = this.$route
+      if (route === path) {
+        this.drawer = false
+      }
       this.$router.push(route)
     }
   },
