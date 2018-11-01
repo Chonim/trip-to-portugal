@@ -20,21 +20,29 @@
           @click="addLink(link)"
         >추가</v-btn>
       </div>
-      <div v-if="currentType !== 'lisbon'">
+
+      <v-radio-group v-model="selectedRadio" row>
+        <v-radio label="All" :value="['porto', 'lisbon', 'general']"></v-radio>
+        <v-radio label="포르투" :value="['porto']"></v-radio>
+        <v-radio label="리스본" :value="['lisbon']"></v-radio>
+        <v-radio label="일반" :value="['general']"></v-radio>
+      </v-radio-group>
+
+      <div v-if="selectedRadio.includes('porto') && getLength(portoObj)">
         <v-subheader inset>포르투</v-subheader>
         <link-list
           :obj="portoObj"
           @update="getList()"
         ></link-list>
       </div>
-        <div v-if="currentType !== 'porto'">
+      <div v-if="selectedRadio.includes('lisbon') && getLength(lisbonObj)">
         <v-subheader inset>리스본</v-subheader>
         <link-list
           :obj="lisbonObj"
           @update="getList()"
         ></link-list>
       </div>
-      <div v-if="!(currentType === 'lisbon' || currentType === 'porto')">
+      <div v-if="selectedRadio.includes('general') && getLength(generalObj)">
         <v-subheader inset>일반</v-subheader>
         <link-list
           :obj="generalObj"
@@ -42,6 +50,11 @@
         ></link-list>
       </div>
     </v-list>
+    <snack-bar
+      :snackbar="snackbar"
+      text="추가 완료!"
+      @close="snackbar = false"
+    ></snack-bar>
   </v-container>
 </template>
 
@@ -51,11 +64,13 @@ import firebase from '@/plugins/firebase'
 import 'firebase/database'
 import CONFIG from '@/config'
 import LinkList from './LinkList'
+import SnackBar from '@/components/elements/SnackBar'
 
 export default {
   name: 'DataTemplate',
   components: {
-    LinkList
+    LinkList,
+    SnackBar
   },
   watch: {
     $route (newRoute) {
@@ -63,12 +78,15 @@ export default {
       this.note = ''
       this.link = ''
       this.currentType = type
+      this.selectedRadio = ['porto', 'lisbon', 'general']
       this.getList()
     }
   },
   data () {
     return {
       ref: null,
+      selectedRadio: ['porto', 'lisbon', 'general'],
+      snackbar: false,
       currentType: '',
       portoObj: {},
       lisbonObj: {},
@@ -106,6 +124,9 @@ export default {
     }
   },
   methods: {
+    getLength (obj) {
+      return Object.keys(obj).length
+    },
     getList () {
       let keyField
       let equalToVal
@@ -145,7 +166,9 @@ export default {
         type: this.currentType,
         link: this.link
       }
-      this.ref.push().set(payload)
+      this.ref.push().set(payload).then(() => {
+        this.snackbar = true
+      })
     }
   },
   mounted () {
