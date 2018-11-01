@@ -33,5 +33,10 @@ export default [
     path: '/search/:keyword',
     name: 'KeywordSearch',
     component: () => import('@/components/KeywordSearch')
+  },
+  {
+    path: '/todo',
+    name: 'Todo',
+    component: () => import('@/components/todo')
   }
 ]

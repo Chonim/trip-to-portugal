@@ -70,6 +70,16 @@ export default {
           route: '/data/favorite'
         },
         {
+          title: '메모',
+          icon: 'note',
+          route: '/note'
+        },
+        {
+          title: '할일',
+          icon: 'format_list_numbered',
+          route: '/todo'
+        },
+        {
           title: '포르투',
           icon: 'flight_land',
           route: '/data/porto'
@@ -78,11 +88,6 @@ export default {
           title: '리스본',
           icon: 'flight_takeoff',
           route: '/data/lisbon'
-        },
-        {
-          title: '메모',
-          icon: 'note',
-          route: '/note'
         },
         {
           title: '날씨',
