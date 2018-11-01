@@ -55,7 +55,8 @@ export default {
 
 <style lang="scss">
 @import url(//fonts.googleapis.com/earlyaccess/hanna.css);
-.hanna * { font-family: 'Hanna', fantasy; }
+/* .hanna * { font-family: 'Hanna', fantasy; } */
+
 html, body {
   margin: 0;
   max-width: 100%;
@@ -84,11 +85,7 @@ a {
   color: #2c3e50;
 }
 
-.display-1 {
-  font-family: 'Hanna', fantasy !important;
-}
-
-.headline {
+.display-1, .headline {
   font-family: 'Hanna', fantasy !important;
 }
 
