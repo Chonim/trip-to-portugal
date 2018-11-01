@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/storage'
@@ -34,5 +35,7 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     // var errorCode = error.code;
     // var errorMessage = error.message;
   })
+
+Vue.prototype.$firebase = firebase
 
 export default firebase

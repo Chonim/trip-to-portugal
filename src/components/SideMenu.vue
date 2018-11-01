@@ -80,6 +80,11 @@ export default {
           route: '/data/lisbon'
         },
         {
+          title: '메모',
+          icon: 'note',
+          route: '/note'
+        },
+        {
           title: '날씨',
           icon: 'wb_sunny',
           route: '/weather'

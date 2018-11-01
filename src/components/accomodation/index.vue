@@ -29,21 +29,21 @@
       </v-radio-group>
 
       <div v-if="selectedRadio.includes('porto') && getLength(portoObj)">
-        <v-subheader inset>포르투</v-subheader>
+        <v-subheader>포르투</v-subheader>
         <link-list
           :obj="portoObj"
           @update="getList()"
         ></link-list>
       </div>
       <div v-if="selectedRadio.includes('lisbon') && getLength(lisbonObj)">
-        <v-subheader inset>리스본</v-subheader>
+        <v-subheader>리스본</v-subheader>
         <link-list
           :obj="lisbonObj"
           @update="getList()"
         ></link-list>
       </div>
       <div v-if="selectedRadio.includes('general') && getLength(generalObj)">
-        <v-subheader inset>일반</v-subheader>
+        <v-subheader>일반</v-subheader>
         <link-list
           :obj="generalObj"
           @update="getList()"

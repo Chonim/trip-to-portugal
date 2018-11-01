@@ -20,6 +20,11 @@ export default [
     component: () => import('@/components/search/NaverSearch')
   },
   {
+    path: '/note',
+    name: 'Note',
+    component: () => import('@/components/note')
+  },
+  {
     path: '/data/:type',
     name: 'Data',
     component: () => import('@/components/accomodation')
