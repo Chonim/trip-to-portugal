@@ -1,5 +1,10 @@
 <template>
   <v-content>
+    <delete-confirm
+      :is-open="isModalOpen"
+      @cancel="isModalOpen = false"
+      @confirm="deleteTodo(selectedKey)"
+    ></delete-confirm>
     <v-container style="max-width: 500px">
       <v-text-field
         v-model="newTask"
@@ -95,7 +100,7 @@
               <v-scroll-x-transition>
                 <v-icon
                   v-if="!task.done"
-                  @click="deleteTodo(task.key)"
+                  @click="openModal(task.key)"
                   color="error"
                 >
                   close
@@ -111,6 +116,7 @@
 
 <script>
 import 'firebase/database'
+import DeleteConfirm from 'Elements/DeleteConfirm'
 import _orderBy from 'lodash/orderBy'
 import { createPayload } from '@/utils/firebase'
 
@@ -119,8 +125,13 @@ export default {
   data: () => ({
     ref: null,
     tasks: [],
-    newTask: null
+    newTask: null,
+    isModalOpen: false,
+    selectedKey: ''
   }),
+  components: {
+    DeleteConfirm
+  },
   computed: {
     completedTasks () {
       return this.tasks.filter(task => task.done).length
@@ -146,9 +157,14 @@ export default {
       const ref = this.ref.child(key)
       ref.update({ done })
     },
+    openModal (key) {
+      this.selectedKey = key
+      this.isModalOpen = true
+    },
     deleteTodo (key) {
       const ref = this.ref.child(key)
       ref.remove()
+      this.isModalOpen = false
     },
     getTodos () {
       this.ref.once('value').then((snapshot) => {

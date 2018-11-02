@@ -1,7 +1,6 @@
 <template>
   <v-dialog
       v-model="dialog"
-      persistent
       max-width="290"
     >
     <v-card>
@@ -46,6 +45,10 @@ export default {
   watch: {
     isOpen (newVal) {
       this.dialog = newVal
+    },
+    dialog (dialog) {
+      if (dialog) return
+      this.$emit('cancel')
     }
   },
   data () {

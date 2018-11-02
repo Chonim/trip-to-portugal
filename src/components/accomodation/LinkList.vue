@@ -20,7 +20,7 @@
 
 <script>
 import firebase from '@/plugins/firebase'
-import DeleteConfirm from '../elements/DeleteConfirm'
+import DeleteConfirm from 'Elements/DeleteConfirm'
 import ListEntity from './ListEntity'
 
 export default {
@@ -47,9 +47,9 @@ export default {
       this.isModalOpen = true
     },
     deleteLink (key) {
-      this.isModalOpen = false
       const ref = firebase.database().ref(`data/${key}`)
       ref.remove()
+      this.isModalOpen = false
     }
   }
 }

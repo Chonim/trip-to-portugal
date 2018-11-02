@@ -13,6 +13,7 @@
         ></v-text-field>
         <v-select
           :items="cityList"
+          v-model="selectedCity"
           @change="selectedCity = $event"
           label="도시"
         ></v-select>
@@ -63,7 +64,7 @@ import _pickBy from 'lodash/pickBy'
 import 'firebase/database'
 import CONFIG from '@/config'
 import { createPayload } from '@/utils/firebase'
-import SnackBar from '@/components/elements/SnackBar'
+import SnackBar from 'Elements/SnackBar'
 import LinkList from './LinkList'
 
 export default {

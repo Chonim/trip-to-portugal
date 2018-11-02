@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <delete-confirm
+      :is-open="isModalOpen"
+      @cancel="isModalOpen = false"
+      @confirm="deleteNote(selectedKey)"
+    ></delete-confirm>
     <v-layout row wrap>
       <v-flex xs12 lg5 mb-3>
         <v-textarea
@@ -20,7 +25,7 @@
             class="icon-wrapper"
           >
             <v-icon
-              @click="deleteNote(item.key)"
+              @click="openModal(item.key)"
             >delete</v-icon>
           </div>
           <v-textarea
@@ -49,23 +54,31 @@
 <script>
 import 'firebase/database'
 import _orderBy from 'lodash/orderBy'
-import SnackBar from '@/components/elements/SnackBar'
+import SnackBar from 'Elements/SnackBar'
+import DeleteConfirm from 'Elements/DeleteConfirm'
 import { createPayload } from '@/utils/firebase'
 
 export default {
   name: 'NoteIndex',
   components: {
-    SnackBar
+    SnackBar,
+    DeleteConfirm
   },
   data () {
     return {
       ref: null,
       snackbar: false,
       notes: [],
-      newNote: ''
+      newNote: '',
+      isModalOpen: false,
+      selectedKey: ''
     }
   },
   methods: {
+    openModal (key) {
+      this.selectedKey = key
+      this.isModalOpen = true
+    },
     getNotes () {
       this.ref.once('value').then((snapshot) => {
         const results = snapshot.val()
@@ -88,6 +101,7 @@ export default {
     deleteNote (key) {
       const ref = this.ref.child(key)
       ref.remove()
+      this.isModalOpen = false
     }
   },
   mounted () {
