@@ -3,9 +3,6 @@ const functions = require('firebase-functions')
 const cheerio = require('cheerio')
 const rp = require('request-promise')
 
-// const fetchBlogs = require('./naver')
-// const crawlPreview = require('./crawl')
-
 exports.helloWorld = functions.https.onRequest((request, response) => {
   response.send('Hello from Firebase!')
 })
@@ -18,15 +15,6 @@ exports.crawlPreview = functions.database.ref('/data/{dataId}').onWrite((change,
     transform: (body) => cheerio.load(body)
   }
 
-  // const originalData = change.after.val()
-  // originalData.metaTitle = link
-  // originalData.metaImage = 'imimi'
-  // originalData.metaDescription = 'dede'
-  // const metaData = {}
-  // metaData.metaTitle = 'd'
-  // metaData.metaImage = 'd'
-  // metaData.metaDescription = 'c'
-  // return change.after.ref.child('meta').set(metaData)
   rp(options)
     .then(($) => {
       const metaData = {}
@@ -40,6 +28,3 @@ exports.crawlPreview = functions.database.ref('/data/{dataId}').onWrite((change,
       return change.after.ref.set(change.after.val())
     })
 })
-
-// exports.fetchBlogs = fetchBlogs
-// exports.crawlPreview = crawlPreview

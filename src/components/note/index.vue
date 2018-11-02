@@ -50,6 +50,7 @@
 import 'firebase/database'
 import _orderBy from 'lodash/orderBy'
 import SnackBar from '@/components/elements/SnackBar'
+import { createPayload } from '@/utils/firebase'
 
 export default {
   name: 'NoteIndex',
@@ -76,13 +77,9 @@ export default {
       })
     },
     addNote () {
-      const date = new Date().toLocaleDateString()
-      const author = this.$firebase.auth().currentUser.displayName
-      const payload = {
-        author,
-        date,
+      const payload = createPayload({
         content: this.newNote
-      }
+      })
       this.ref.push().set(payload).then(() => {
         this.snackbar = true
         this.newNote = ''

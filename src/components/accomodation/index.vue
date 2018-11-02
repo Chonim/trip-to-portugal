@@ -60,11 +60,11 @@
 
 <script>
 import _pickBy from 'lodash/pickBy'
-import firebase from '@/plugins/firebase'
 import 'firebase/database'
 import CONFIG from '@/config'
-import LinkList from './LinkList'
+import { createPayload } from '@/utils/firebase'
 import SnackBar from '@/components/elements/SnackBar'
+import LinkList from './LinkList'
 
 export default {
   name: 'DataTemplate',
@@ -92,7 +92,7 @@ export default {
       lisbonObj: {},
       generalObj: {},
       cityList: ['porto', 'lisbon', 'general'],
-      selectedCity: '',
+      selectedCity: 'general',
       note: '',
       link: '',
       items: [
@@ -157,22 +157,23 @@ export default {
         return meta
       })
 
-      const payload = {
+      const payload = createPayload({
         meta,
         city: this.selectedCity,
         note: this.note,
         isFavorite: false,
-        addedDate: new Date(),
         type: this.currentType,
         link: this.link
-      }
+      })
       this.ref.push().set(payload).then(() => {
         this.snackbar = true
+        this.link = ''
+        this.note = ''
       })
     }
   },
   mounted () {
-    this.ref = firebase.database().ref('/data')
+    this.ref = this.$firebase.database().ref('/data')
     this.ref.on('value', () => this.getList())
     this.currentType = this.$route.params.type
     this.getList()

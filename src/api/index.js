@@ -1,8 +1,9 @@
 import Axios from 'axios'
+import auth from './auth'
+import dataApi from './data'
 
 const weather = {
   getWeather (locationIds) {
-    console.log(locationIds)
     let woeid = [locationIds[0]]
     if (locationIds.length > 1) {
       locationIds.forEach((id, index) => {
@@ -22,13 +23,15 @@ const weather = {
   }
 }
 
-const handleApi = (request, ...params) => {
-  console.log(request)
-  const api = {...weather}
+export default (request, ...params) => {
+  const api = {
+    ...weather,
+    ...auth,
+    ...dataApi
+  }
   return api[request](...params).then((result) => {
+    if (!result) return
     const { data } = result
     return data
   })
 }
-
-export default handleApi

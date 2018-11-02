@@ -112,6 +112,7 @@
 <script>
 import 'firebase/database'
 import _orderBy from 'lodash/orderBy'
+import { createPayload } from '@/utils/firebase'
 
 export default {
   name: 'TodoList',
@@ -133,14 +134,10 @@ export default {
   },
   methods: {
     create () {
-      const date = new Date().toLocaleDateString()
-      const author = this.$firebase.auth().currentUser.displayName
-      const payload = {
-        author,
-        date,
+      const payload = createPayload({
         text: this.newTask,
         done: false
-      }
+      })
       this.ref.push().set(payload).then(() => {
         this.newTask = null
       })
