@@ -22,12 +22,12 @@ export default [
   {
     path: '/note',
     name: 'Note',
-    component: () => import('@/components/note')
+    component: () => import('@/components/Note')
   },
   {
     path: '/data/:type',
     name: 'Data',
-    component: () => import('@/components/accomodation')
+    component: () => import('@/components/data-view')
   },
   {
     path: '/search/:keyword',
@@ -37,6 +37,6 @@ export default [
   {
     path: '/todo',
     name: 'Todo',
-    component: () => import('@/components/todo')
+    component: () => import('@/components/Todo')
   }
 ]

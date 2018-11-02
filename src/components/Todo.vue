@@ -57,7 +57,7 @@
       
       <v-divider class="mb-3"></v-divider>
       
-      <v-card v-if="tasks.length > 0">
+      <v-card v-if="tasks.length">
         <v-slide-y-transition
           class="py-0"
           group

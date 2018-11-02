@@ -29,21 +29,21 @@
         <v-radio label="일반" :value="['general']"></v-radio>
       </v-radio-group>
 
-      <div v-if="selectedRadio.includes('porto') && getLength(portoObj)">
+      <div v-if="getVisible('porto', portoObj)">
         <v-subheader>포르투</v-subheader>
         <link-list
           :obj="portoObj"
           @update="getList()"
         ></link-list>
       </div>
-      <div v-if="selectedRadio.includes('lisbon') && getLength(lisbonObj)">
+      <div v-if="getVisible('lisbon', lisbonObj)">
         <v-subheader>리스본</v-subheader>
         <link-list
           :obj="lisbonObj"
           @update="getList()"
         ></link-list>
       </div>
-      <div v-if="selectedRadio.includes('general') && getLength(generalObj)">
+      <div v-if="getVisible('general', generalObj)">
         <v-subheader>일반</v-subheader>
         <link-list
           :obj="generalObj"
@@ -68,7 +68,7 @@ import SnackBar from 'Elements/SnackBar'
 import LinkList from './LinkList'
 
 export default {
-  name: 'DataTemplate',
+  name: 'DataView',
   components: {
     LinkList,
     SnackBar
@@ -127,6 +127,9 @@ export default {
   methods: {
     getLength (obj) {
       return Object.keys(obj).length
+    },
+    getVisible (city, cityObj) {
+      return this.selectedRadio.includes(city) && this.getLength(cityObj)
     },
     getList () {
       let keyField
