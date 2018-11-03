@@ -16,8 +16,10 @@ firebase.initializeApp(config)
 console.log(firebase)
 
 firebase.auth().onAuthStateChanged((user) => {
-  const { displayName } = firebase.auth().currentUser
+  const { displayName, photoURL } = user
+  console.log(user)
   store.dispatch('auth/changeUsername', displayName)
+  store.dispatch('auth/changeUserPhoto', photoURL)
 })
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)

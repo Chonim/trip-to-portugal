@@ -64,6 +64,7 @@ import _pickBy from 'lodash/pickBy'
 import 'firebase/database'
 import CONFIG from '@/config'
 import { createPayload } from '@/utils/firebase'
+import { EventBus } from '@/plugins/event-bus.js'
 import SnackBar from 'Elements/SnackBar'
 import LinkList from './LinkList'
 
@@ -155,6 +156,7 @@ export default {
       })
     },
     async addLink () {
+      EventBus.$emit('loading', true)
       const meta = await this.$http.get(`${CONFIG.HEROKU_URL}${this.link}`).then((res) => {
         console.log(res)
         const { meta } = res.data
@@ -173,6 +175,7 @@ export default {
         this.snackbar = true
         this.link = ''
         this.note = ''
+        EventBus.$emit('loading', false)
       })
     }
   },

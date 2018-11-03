@@ -39,7 +39,7 @@ export default {
       y: 'top',
       x: null,
       mode: '',
-      timeout: 3000,
+      timeout: 2000,
       color: 'success'
     }
   },

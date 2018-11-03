@@ -12,7 +12,7 @@
       <v-list class="pa-1">
         <v-list-tile avatar>
           <v-list-tile-avatar>
-            <img src="https://randomuser.me/api/portraits/men/85.jpg">
+            <img :src="photoUrl">
           </v-list-tile-avatar>
 
           <v-list-tile-content>
@@ -73,6 +73,11 @@ export default {
           title: '메모',
           icon: 'note',
           route: '/note'
+        },
+        {
+          title: '지도',
+          icon: 'map',
+          route: '/map'
         },
         {
           title: '할일',
@@ -151,7 +156,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      username: 'auth/getUsername'
+      username: 'auth/getUsername',
+      photoUrl: 'auth/getUserPhoto'
     })
   },
   watch: {

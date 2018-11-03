@@ -43,6 +43,7 @@ export default {
   },
   mounted () {
     this.fetchWeather()
+    console.log(this)
   }
 }
 </script>

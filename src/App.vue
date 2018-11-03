@@ -21,6 +21,10 @@
         </div>
       </div>
     </header>
+    <v-progress-linear
+      :indeterminate="true"
+      v-show="isProgressBarOn"
+    ></v-progress-linear>
     <main>
       <v-content>
         <router-view></router-view>
@@ -31,6 +35,7 @@
 
 <script>
 import firebase from '@/plugins/firebase'
+import { EventBus } from '@/plugins/event-bus.js'
 import SideMenu from './components/SideMenu'
 
 export default {
@@ -40,7 +45,8 @@ export default {
   },
   data () {
     return {
-      isSideMenuOpen: false
+      isSideMenuOpen: false,
+      isProgressBarOn: false
     }
   },
   methods: {
@@ -49,6 +55,12 @@ export default {
         this.$store.dispatch('auth/changeUsername', '')
       })
     }
+  },
+  created () {
+    EventBus.$on('loading', (isOn) => {
+      console.log('isOn: ', isOn)
+      this.isProgressBarOn = isOn
+    })
   }
 }
 </script>
@@ -87,6 +99,10 @@ a {
 
 .display-1, .headline {
   font-family: 'Hanna', fantasy !important;
+}
+
+.v-progress-linear {
+  margin-top: 0;
 }
 
 main {

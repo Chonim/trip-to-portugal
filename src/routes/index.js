@@ -25,6 +25,11 @@ export default [
     component: () => import('@/components/Note')
   },
   {
+    path: '/map',
+    name: 'Map',
+    component: () => import('@/components/map')
+  },
+  {
     path: '/data/:type',
     name: 'Data',
     component: () => import('@/components/data-view')
